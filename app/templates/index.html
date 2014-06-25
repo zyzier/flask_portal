@@ -1,0 +1,25 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
+<h1>Hi, {{user.nickname}}!</h1>
+{% for post in posts %}
+<div><p>{{post.author.nickname}} says: <b>{{post.body}}</b></p></div>
+{% endfor %}
+<form action="" method="post" name="checkvps">
+    {{form.hidden_tag()}}
+    <table>
+        <tr>
+            <td>Enter pass to check VPS load:</td>
+            <td>{{form.password(size = 25)}}</td>
+            {% for error in form.errors.title %}
+            <span style="color: red;">[{{error}}]</span>
+            {% endfor %}<br>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Go!"></td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
+

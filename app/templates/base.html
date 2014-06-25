@@ -1,0 +1,29 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{title}} - microblog</title>
+    {% else %}
+    <title>Peps's microblog</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>Навигация: 
+        <a href="/index">Home</a> 
+        {% if g.user.is_authenticated() %}
+        <a href="{{ url_for('user', nickname = g.user.nickname) }}">UserPage</a>
+        <a href="/logout">Logout</a>
+        {% endif %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>
