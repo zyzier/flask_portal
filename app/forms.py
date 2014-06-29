@@ -9,7 +9,8 @@ class LoginForm(Form):
 
 class EditForm(Form):
 	title = TextField('title', validators = [InputRequired(message = 'Need some title'), Length(min = 0, max = 120)])
-	post = TextAreaField('post', validators = [Length(min = 0, max = 500)])
+	post = TextAreaField('post', validators = [InputRequired(message = 'Some message for people?')])
+#	post = TextAreaField('post', validators = [Length(min = 0, max = 500, message = 'Too long text... 500 max')])
 
 class CheckServerForm(Form):
 	password = PasswordField('password', validators = [InputRequired(message = 'Need admin pass')])

@@ -26,7 +26,7 @@ class User(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120), unique = True)
-    body = db.Column(db.String(500))
+    body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -34,5 +34,5 @@ class Post(db.Model):
         return (self.title)
 
     def __repr__(self):
-        return (self.body)
-        #return '<Post %r' % (self.body)
+        #To return text as normal utf8 string need to convert it:
+        return unicode(self.body)
