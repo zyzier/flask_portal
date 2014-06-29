@@ -79,7 +79,7 @@ def user(nickname):
 @app.route('/edit_post_<post_id>', methods = ['GET', 'POST'])
 @login_required
 def edit(post_id):
-	form = EditForm()
+        form = EditForm()
 	if form.validate_on_submit():
 		post = Post.query.get(post_id)
 		post.title = form.title.data
