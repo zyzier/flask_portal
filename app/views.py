@@ -5,8 +5,9 @@ from datetime import datetime
 from app import app, db, lm
 from forms import LoginForm, EditForm, CheckServerForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN
-import os
-import sys
+#For working with commandline it's better to use subprocesses unlike os module
+from subprocess import Popen, PIPE
+
 
 @lm.user_loader
 def load_user(id):
@@ -27,14 +28,10 @@ def index():
     user = g.user
     form = CheckServerForm()
     if form.validate_on_submit():
-    	p = form.password.data
-    	check_command = "echo '{0}' | flask/bin/python checkvps.py".format(p)
-    	if os.system(check_command) == 0:
-	        #flash('Result:' + sys.stdout.read())
-	        #return Response(mimetype='text/txt')
-	        print ('OK!')
-        else:
-	        print('NO!')
+        p = form.password.data
+        check_command = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE, stdin = PIPE)
+    	return check_command.communicate(input = p)[0]
+        # or return render_template("summary.html", output = ) 
     return render_template("index.html", title = 'Home', user = user, form = form)
 
 @app.route('/login', methods = ['GET', 'POST'])

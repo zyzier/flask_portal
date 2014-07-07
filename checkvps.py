@@ -54,17 +54,20 @@ ssh.connect(server, username = user, password = password, port = port)
 stdin, stdout, stderr = ssh.exec_command('hostname')
 hostname = stdout.read().replace('\n', '')
 print HEADER + 'Hostname: %s' % hostname +ENDC
+#out = [HEADER + 'Hostname: %s' % hostname +ENDC]
 
 stdin, stdout, stderr = ssh.exec_command('free -m')
 stdin, stdout, stderr = ssh.exec_command('free -m')
 print GREEN + 'Memory total: %s Memory used: %s' % show_memory(stdout.read().splitlines()) + ENDC
+#out.append('Memory total: %s Memory used: %s' % show_memory(stdout.read().splitlines()) + ENDC)
     
 stdin, stdout, stderr = ssh.exec_command('uptime')
 print BLUE + 'Load average: %s %s %s' % load_average(stdout.read()) + ENDC 
+#out.append('Load average: %s %s %s' % load_average(stdout.read()) + ENDC)
 
 stdin, stdout, stderr = ssh.exec_command('df -h')
 print YELLOW + 'Disk total: %s Disk used: %s Disk avail: %s' % show_df(stdout.read().splitlines()) + ENDC
-
+#out.append('Disk total: %s Disk used: %s Disk avail: %s' % show_df(stdout.read().splitlines()) + ENDC)
 print '-------------------------------------------'
-
+#print [out]
 ssh.close()
