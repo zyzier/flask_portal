@@ -30,8 +30,8 @@ def index():
     if form.validate_on_submit():
         p = form.password.data
         check_command = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE, stdin = PIPE)
-    	return check_command.communicate(input = p)[0]
-        # or return render_template("summary.html", output = ) 
+    	#return check_command.communicate(input = p)[0]
+        return render_template("summary.html", output = check_command.communicate(input = p)[0] ) 
     return render_template("index.html", title = 'Home', user = user, form = form)
 
 @app.route('/login', methods = ['GET', 'POST'])
