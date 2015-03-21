@@ -1,0 +1,23 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
+<table>
+    <tr valign="top">
+        <td>
+            <h1>Post # {{post.id}}</h1>
+            {% if post.timestamp %}
+            <p><i>Last modified: {{post.timestamp}}</i></p>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+<hr>
+<div>
+    <p>
+        Title: <b>{{post.title}}</b>
+        <p>{{post.body}}</p>
+        <p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a>
+        <a href="{{url_for('user', nickname = g.user.nickname)}}"><input type="button" value="Back"></a></p>
+    </p>
+</div>
+{% endblock %}
