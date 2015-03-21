@@ -93,7 +93,7 @@ def edit(post_id):
 		return render_template('edit.html', form = form)
 
 #Post view page
-@app.route('/view_post_<post_id>', methods = ['GET'])
+@app.route('/post_<post_id>', methods = ['GET'])
 @login_required
 def view_post(post_id):
 	user = g.user
