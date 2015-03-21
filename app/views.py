@@ -82,6 +82,7 @@ def edit(post_id):
 		post = Post.query.get(post_id)
 		post.title = form.title.data
 		post.body = form.post.data
+		post.timestamp = datetime.utcnow()
 		db.session.add(post)
 		db.session.commit()
 		flash('CHANGES SAVED!!!')
