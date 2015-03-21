@@ -65,6 +65,7 @@ def logout():
 	return redirect(url_for('index'))
 
 @app.route('/user/<nickname>')
+@login_required
 def user(nickname):
 	user = User.query.filter_by(nickname = nickname).first()
 	posts = g.user.posts.all()
@@ -89,6 +90,14 @@ def edit(post_id):
 		form.post.data = Post.query.get(post_id)
 		form.title.data = Post.query.get(post_id).Title()
 		return render_template('edit.html', form = form)
+
+#Post view page
+@app.route('/view_post_<post_id>', methods = ['GET'])
+@login_required
+def view_post(post_id):
+	user = g.user
+	post = Post.query.get(post_id)
+	return render_template('view_post.html', user = user, post = post)
 
 #Try to view XML
 #@app.route('/testxml')
