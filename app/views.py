@@ -64,15 +64,29 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
-@app.route('/user/<nickname>')
+#User page. For now it's just Posts like in notes page
+#For link to it, need to past it to html template:
+#<a href="{{ url_for('user', nickname = g.user.nickname) }}">UserPage</a>
+#@app.route('/<nickname>')
+#@login_required
+#def user(nickname):
+#	user = User.query.filter_by(nickname = nickname).first()
+#	posts = g.user.posts.all()
+#	if user == None:
+#		flash('User: ' + nickname + 'not found.')
+#		return redirect(url_for('index'))
+#	return render_template('user.html', user = user, posts = posts)
+
+#Notes page
+@app.route('/notes')
 @login_required
-def user(nickname):
-	user = User.query.filter_by(nickname = nickname).first()
+def notes():
+	user = g.user
 	posts = g.user.posts.all()
 	if user == None:
 		flash('User: ' + nickname + 'not found.')
 		return redirect(url_for('index'))
-	return render_template('user.html', user = user, posts = posts)
+	return render_template('notes.html', user = user, posts = posts)
 
 @app.route('/edit_post_<post_id>', methods = ['GET', 'POST'])
 @login_required

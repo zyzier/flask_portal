@@ -17,7 +17,7 @@
         Title: <b>{{post.title}}</b>
         <p>{{post.body}}</p>
         <p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a>
-        <a href="{{url_for('user', nickname = g.user.nickname)}}"><input type="button" value="Back"></a></p>
+        <a href="{{url_for('notes')}}"><input type="button" value="Back"></a></p>
     </p>
 </div>
 {% endblock %}
