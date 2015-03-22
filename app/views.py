@@ -26,13 +26,17 @@ def before_request():
 @login_required
 def index():
     user = g.user
-    form = CheckServerForm()
-    if form.validate_on_submit():
-        p = form.password.data
+    form1 = CheckServerForm()
+    form2 = LoginForm()
+    if form1.validate_on_submit():
+        p = form1.password.data
         check_command = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE, stdin = PIPE)
     	#return check_command.communicate(input = p)[0]
-        return render_template("summary.html", output = check_command.communicate(input = p)[0] ) 
-    return render_template("index.html", title = 'Home', user = user, form = form)
+        return render_template("summary.html", output = check_command.communicate(input = p)[0])
+    if form2.validate_on_submit():
+    	adduser(form2.login, form2.password)
+    	return render_template("index.html", title = 'Home', user = user, form = form1, form2 = form2)
+    return render_template("index.html", title = 'Home', user = user, form = form1, form2 = form2)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -63,6 +67,14 @@ def after_login(nickname):
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
+
+#Adding user
+def adduser(nickname, password):
+	newuser = User(nickname = nickname, password = password)
+	db.session.add(newuser)
+	db.session.commit()
+	flash ('all is ok!')
+	return
 
 #User page. For now it's just Posts like in notes page
 #For link to it, need to past it to html template:

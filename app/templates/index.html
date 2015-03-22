@@ -18,15 +18,33 @@
         <tr>
             <td>Enter pass to check VPS load:</td>
             <td>{{form.password(size = 25)}}</td>
-            {% for error in form.errors.title %}
+            {% for error in form.errors.password %}
             <span style="color: red;">[{{error}}]</span>
             {% endfor %}<br>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Go!"></td>
+            <td><input type="submit" value="Check!"></td>
         </tr>
     </table>
+</form>
+<form action="" method="post" name="adduser">
+    {{form.hidden_tag()}}
+    <p>
+        Login:<br>
+        {{form2.login(size=50)}}<br>
+        {% for error in form2.errors.login %}
+        <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p>
+        Password:<br>
+        {{form2.password(size=50)}}<br>
+        {% for error in form2.errors.password %}
+        <span style="color: red;">[{{error}}]</span>
+        {% endfor %}<br>
+    </p>
+    <p><input type="submit" value="Create"></p>
 </form>
 {% endblock %}
 
