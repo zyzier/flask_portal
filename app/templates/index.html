@@ -6,7 +6,9 @@
         <td>
             <h1>Hi, {{user.nickname}}!</h1>
                         {% if user.role == 1 %}
-                        <p><i>Role: Admin</i></p>
+                        <p><i>Role: admin</i></p>
+                        {% elif user.role == 0 %}
+                        <p><i>Role: user</i></p>
                         {% endif %}
                         {% if user.last_seen %}
                         <p><i>Last seen on: {{user.last_seen}}</i></p>
@@ -16,23 +18,5 @@
     </tr>
 </table>
 <hr>
-<form action="" method="post" name="adduser">
-    {{form.hidden_tag()}}
-    <p>
-        Login:<br>
-        {{form.login(size=50)}}<br>
-        {% for error in form.errors.login %}
-        <span style="color: red;">[{{error}}]</span>
-        {% endfor %}<br>
-    </p>
-    <p>
-        Password:<br>
-        {{form.password(size=50)}}<br>
-        {% for error in form.errors.password %}
-        <span style="color: red;">[{{error}}]</span>
-        {% endfor %}<br>
-    </p>
-    <p><input type="submit" value="Create"></p>
-</form>
 {% endblock %}
 
