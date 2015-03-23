@@ -28,7 +28,8 @@ def index():
     user = g.user
     form = LoginForm()
     if form.validate_on_submit():
-    	adduser(form.login, form.password)
+        flash(form.login)
+    	adduser(form.login.data, form.password.data)
     	return render_template("index.html", title = 'Home', user = user, form = form)
     return render_template("index.html", title = 'Home', user = user, form = form)
 
@@ -78,7 +79,7 @@ def adduser(nickname, password):
 	db.session.add(newuser)
 	db.session.commit()
 	flash ('all is ok!')
-	return
+	return redirect(url_for('index'))
 
 #User page. For now it's just Posts like in notes page
 #For link to it, need to past it to html template:
