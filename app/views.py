@@ -26,17 +26,21 @@ def before_request():
 @login_required
 def index():
     user = g.user
-    form1 = CheckServerForm()
-    form2 = LoginForm()
-    if form1.validate_on_submit():
-        p = form1.password.data
-        check_command = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE, stdin = PIPE)
-    	#return check_command.communicate(input = p)[0]
-        return render_template("summary.html", output = check_command.communicate(input = p)[0])
-    if form2.validate_on_submit():
-    	adduser(form2.login, form2.password)
-    	return render_template("index.html", title = 'Home', user = user, form = form1, form2 = form2)
-    return render_template("index.html", title = 'Home', user = user, form = form1, form2 = form2)
+    form = LoginForm()
+    if form.validate_on_submit():
+    	adduser(form.login, form.password)
+    	return render_template("index.html", title = 'Home', user = user, form = form)
+    return render_template("index.html", title = 'Home', user = user, form = form)
+
+@app.route('/summary', methods = ['GET'])
+@login_required
+def summary():
+    if g.user.role == 1 :
+        #check_command = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE, stdin = PIPE)
+        #return check_command.communicate(input = p)[0]
+        out, err = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE).communicate()
+        return render_template("summary.html", output = out)
+    return redirect(url_for('index'))           
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
