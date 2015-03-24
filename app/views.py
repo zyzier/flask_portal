@@ -8,7 +8,6 @@ from models import User, Post, ROLE_USER, ROLE_ADMIN
 #For working with commandline it's better to use subprocesses unlike os module
 from subprocess import Popen, PIPE
 
-
 @lm.user_loader
 def load_user(id):
 	return User.query.get(int(id))
@@ -136,7 +135,7 @@ def edit(post_id):
 	if user != post.author:
 		flash('Access denied')
 		return redirect(url_for('index'))
-        form = EditForm()
+        form = EditForm(post.title)
 	if form.validate_on_submit():
 		#Check what button is pressed
 		if 'save' in request.form:
