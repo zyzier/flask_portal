@@ -1,3 +1,4 @@
 db_repository/*
 runP.py
 tmp/*
+tests.py

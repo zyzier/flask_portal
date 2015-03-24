@@ -13,7 +13,8 @@
     <p><a href="{{url_for('edit', post_id = newpost_id)}}"><input type="button" value="New post"></a></p>
 </table>
 <hr>
-{% for post in posts %}
+<!-- posts is a Paginate object -->
+{% for post in posts.items %}
 <div>
 	<p>
 		Note#{{post.id}}: <b>{{post.title}}</b>
@@ -25,4 +26,6 @@
 	</p>
 </div>
 {% endfor %}
+{% if posts.has_prev %}<a href="{{ url_for('index', page = posts.prev_num) }}"><< Newer posts</a>{% else %}<< Newer posts{% endif %} | 
+{% if posts.has_next %}<a href="{{ url_for('index', page = posts.next_num) }}">Older posts >></a>{% else %}Older posts >>{% endif %}
 {% endblock %}

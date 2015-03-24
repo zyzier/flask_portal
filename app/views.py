@@ -7,6 +7,7 @@ from forms import LoginForm, EditForm, CheckServerForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN
 #For working with commandline it's better to use subprocesses unlike os module
 from subprocess import Popen, PIPE
+from config import POSTS_PER_PAGE
 
 @lm.user_loader
 def load_user(id):
@@ -20,25 +21,20 @@ def before_request():
 		db.session.add(g.user)
 		db.session.commit()
 
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 @app.route('/index', methods = ['GET', 'POST'])
+@app.route('/index/<int:page>', methods = ['GET', 'POST'])
 @login_required
-def index():
+def index(page = 1):
     user = g.user
-    form = LoginForm()
-    posts = Post.query.all()
-#    if form.validate_on_submit():
-#        flash(form.login)
-#    	adduser(form.login.data, form.password.data)
-#    	return render_template("index.html", title = 'Home', user = user, form = form)
-    return render_template("index.html", title = 'Home', user = user, form = form, posts = posts)
+    #Using Pagination for regulation posts per page
+    posts = Post.query.paginate(page, POSTS_PER_PAGE, False)
+    return render_template("index.html", title = 'Home', user = user, posts = posts)
 
 @app.route('/summary', methods = ['GET'])
 @login_required
 def summary():
     if g.user.role == 1 :
-        #check_command = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE, stdin = PIPE)
-        #return check_command.communicate(input = p)[0]
         out, err = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE).communicate()
         return render_template("summary.html", output = out)
     return redirect(url_for('index'))           
@@ -94,11 +90,13 @@ def adduser(nickname, password):
 #		return redirect(url_for('index'))
 #	return render_template('user.html', user = user, posts = posts)
 
-@app.route('/notes')
+@app.route('/notes', methods = ['GET'])
+@app.route('/notes/<int:page>', methods = ['GET'])
 @login_required
-def notes():
+@login_required
+def notes(page = 1):
 	user = g.user
-	posts = g.user.posts.all()
+	posts = g.user.posts.paginate(page, POSTS_PER_PAGE, False)
 	if user == None:
 		flash('User: ' + nickname + 'not found.')
 		return redirect(url_for('index'))
