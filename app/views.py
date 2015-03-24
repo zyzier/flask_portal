@@ -95,7 +95,6 @@ def adduser(nickname, password):
 #		return redirect(url_for('index'))
 #	return render_template('user.html', user = user, posts = posts)
 
-#Notes page
 @app.route('/notes')
 @login_required
 def notes():
@@ -104,26 +103,54 @@ def notes():
 	if user == None:
 		flash('User: ' + nickname + 'not found.')
 		return redirect(url_for('index'))
-	return render_template('notes.html', user = user, posts = posts)
+	#Checking next post_id before creating one
+	#in template there is button that uses newpost()
+	newpost_id = 1
+	for i in Post.query.all():
+		if i.id == newpost_id:
+			newpost_id += 1
+	return render_template('notes.html', user = user, posts = posts, newpost_id = newpost_id)
 
+#Creating post by new post_id with empty body 
+def newpost(post_id):
+	user = g.user
+	post = Post(id = post_id, timestamp = datetime.utcnow(), author = user)
+	db.session.add(post)
+	db.session.commit()
+	#flash('New post %s created!') % post.id
+
+def deletepost(post_id):
+	p = Post.query.get(post_id)
+	db.session.delete(p)
+	db.session.commit()
+	return flash('Post deleted!')
+	
 @app.route('/edit_post_<post_id>', methods = ['GET', 'POST'])
 @login_required
 def edit(post_id):
 	user = g.user
+	#Creating post before editinf if it's new  
+	if not Post.query.get(post_id):
+		newpost(post_id)
 	post = Post.query.get(post_id)	
 	if user != post.author:
 		flash('Access denied')
 		return redirect(url_for('index'))
         form = EditForm()
 	if form.validate_on_submit():
-		post = Post.query.get(post_id)
-		post.title = form.title.data
-		post.body = form.post.data
-		post.timestamp = datetime.utcnow()
-		db.session.add(post)
-		db.session.commit()
-		flash('CHANGES SAVED!!!')
-		return redirect(url_for('index'))
+		#Check what button is pressed
+		if 'save' in request.form:
+			post = Post.query.get(post_id)
+			post.title = form.title.data
+			post.body = form.post.data
+			post.timestamp = datetime.utcnow()
+			db.session.add(post)
+			db.session.commit()
+			flash('CHANGES SAVED!!!')
+			return redirect(url_for('index'))
+		elif 'delete' in request.form:
+			deletepost(post_id)
+			return redirect(url_for('notes'))
 	else:
 		form.post.data = Post.query.get(post_id)
 		form.title.data = Post.query.get(post_id).Title()

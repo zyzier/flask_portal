@@ -10,6 +10,7 @@
 			{% endif %}
         </td>
     </tr>
+    <p><a href="{{url_for('edit', post_id = newpost_id)}}"><input type="button" value="New post"></a></p>
 </table>
 <hr>
 {% for post in posts %}
