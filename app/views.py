@@ -27,11 +27,12 @@ def before_request():
 def index():
     user = g.user
     form = LoginForm()
-    if form.validate_on_submit():
-        flash(form.login)
-    	adduser(form.login.data, form.password.data)
-    	return render_template("index.html", title = 'Home', user = user, form = form)
-    return render_template("index.html", title = 'Home', user = user, form = form)
+    posts = Post.query.all()
+#    if form.validate_on_submit():
+#        flash(form.login)
+#    	adduser(form.login.data, form.password.data)
+#    	return render_template("index.html", title = 'Home', user = user, form = form)
+    return render_template("index.html", title = 'Home', user = user, form = form, posts = posts)
 
 @app.route('/summary', methods = ['GET'])
 @login_required
