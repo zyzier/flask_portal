@@ -1,33 +1,44 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<table>
-    <tr valign="top">
-        <td>
-            <h1>Hi, {{user.nickname}}!</h1>
-                        {% if user.role == 1 %}
-                        <p><i>Role: admin</i></p>
-                        {% elif user.role == 0 %}
-                        <p><i>Role: user</i></p>
-                        {% endif %}
-                        {% if user.last_seen %}
-                        <p><i>Last seen on: {{user.last_seen}}</i></p>
-                        {% endif %}
-
-        </td>
-    </tr>
-</table>
-<hr>
-<!-- posts is a Paginate object -->
-{% for post in posts.items %}
-<div>
-        <p>
-                Note#{{post.id}}: <b>{{post.title}}</b> <i>author:</i>{{post.author.nickname}}
-                <p><a href="{{url_for('view_post', post_id = post.id)}}"><input type="button" value="View"></a></p>
-        </p>
+<div class="jumbotron">
+    <h1>Hi, {{user.nickname}}!</h1>
+    {% if user.role == 1 %}
+    <p><i>Role: admin</i></p>
+    {% elif user.role == 0 %}
+    <p><i>Role: user</i></p>
+    {% endif %}
+    {% if user.last_seen %}
+    <p><i>Last seen on: {{user.last_seen}}</i></p>
+    {% endif %}
 </div>
-{% endfor %}
-{% if posts.has_prev %}<a href="{{ url_for('index', page = posts.prev_num) }}"><< Newer posts</a>{% else %}<< Newer posts{% endif %} | 
-{% if posts.has_next %}<a href="{{ url_for('index', page = posts.next_num) }}">Older posts >></a>{% else %}Older posts >>{% endif %}
+
+<div class="container">
+<div class="row row-offcanvas row-offcanvas-right">
+    <div class="row">
+        <!-- posts is a Paginate object -->
+        {% for post in posts.items %}
+        <div class="col-xs-6">
+            <h2>{{post.title}}</h2>
+            <p><strong>Note#{{post.id}}</strong><i> by {{post.author.nickname}}</i></p>
+            <p><a class="btn btn-default" href="{{url_for('view_post', post_id = post.id)}}" role="button">View details »</a></p>
+        </div><!--/span-->
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+<ul class="pagination">
+    {% if posts.has_prev %}
+    <li class="previous"><a href="{{ url_for('index', page = posts.prev_num) }}">Newer posts</a></li>
+    {% else %}
+    <li class="previous disabled"><a href="#">Newer posts</a></li>
+    {% endif %}
+    {% if posts.has_next %}
+    <li class="next"><a href="{{ url_for('index', page = posts.next_num) }}">Older posts</a></li>
+    {% else %}
+    <li class="next disabled"><a href="#">Older posts</a></li>
+    {% endif %}
+</ul>
 {% endblock %}
 

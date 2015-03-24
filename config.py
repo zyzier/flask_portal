@@ -17,4 +17,4 @@ MAIL_PASSWORD = None
 ADMINS = ['peps@zyzier.tk', 'pepsbox@gmail.com']
 
 #Pagination
-POSTS_PER_PAGE = 5
+POSTS_PER_PAGE = 6

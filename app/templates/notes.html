@@ -1,31 +1,36 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<table>
-    <tr valign="top">
-        <td>
-            <h1>Hi, {{user.nickname}}!</h1>
-			{% if user.last_seen %}
-			<p><i>Last seen on: {{user.last_seen}}</i></p>
-			{% endif %}
-        </td>
-    </tr>
-    <p><a href="{{url_for('edit', post_id = newpost_id)}}"><input type="button" value="New post"></a></p>
-</table>
+<p><a href="{{url_for('edit', post_id = newpost_id)}}"><button type="button" class="btn btn-lg btn-success" value="New post">New post</button></a></p>
 <hr>
-<!-- posts is a Paginate object -->
-{% for post in posts.items %}
-<div>
-	<p>
-		Note#{{post.id}}: <b>{{post.title}}</b>
-		<!-- For get post author: 
-		<p>auth:<i>{{post.author.nickname}}</i></p>
-		-->
-		<p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a>
-		<a href="{{url_for('view_post', post_id = post.id)}}"><input type="button" value="View"></a></p>
-	</p>
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading"><b>All your posts</b></div>
+			<!-- Table -->
+			<table class="table">
+				<!-- posts is a Paginate object -->
+				{% for post in posts.items %}
+				<tr>					
+					<td width="100%">{{post.title}}</td>
+					<td><a href="{{url_for('edit', post_id = post.id)}}"><button type="button" class="btn btn-success">Edit</button></a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
 </div>
-{% endfor %}
-{% if posts.has_prev %}<a href="{{ url_for('index', page = posts.prev_num) }}"><< Newer posts</a>{% else %}<< Newer posts{% endif %} | 
-{% if posts.has_next %}<a href="{{ url_for('index', page = posts.next_num) }}">Older posts >></a>{% else %}Older posts >>{% endif %}
+	
+<ul class="pagination">
+    {% if posts.has_prev %}
+    <li class="previous"><a href="{{ url_for('notes', page = posts.prev_num) }}">Newer posts</a></li>
+    {% else %}
+    <li class="previous disabled"><a href="#">Newer posts</a></li>
+    {% endif %}
+    {% if posts.has_next %}
+    <li class="next"><a href="{{ url_for('notes', page = posts.next_num) }}">Older posts</a></li>
+    {% else %}
+    <li class="next disabled"><a href="#">Older posts</a></li>
+    {% endif %}
+</ul>
 {% endblock %}
