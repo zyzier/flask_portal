@@ -5,6 +5,7 @@
     <tr valign="top">
         <td>
             <h1>Post # {{post.id}}</h1>
+            author: {{post.author.nickname}}
             {% if post.timestamp %}
             <p><i>Last modified: {{post.timestamp}}</i></p>
             {% endif %}
@@ -16,8 +17,10 @@
     <p>
         <center>Title: <b>{{post.title}}</b></center>
         <p><pre>{{post.body}}</pre></p>
-        <p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a>
-        <a href="{{url_for('notes')}}"><input type="button" value="Back"></a></p>
+        {% if post.author.nickname == user.nickname %}
+	<p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a></p>
+	{% endif %}
+        <p><a href="{{url_for('index')}}"><input type="button" value="Back"></a></p>		
     </p>
 </div>
 {% endblock %}
