@@ -109,6 +109,11 @@ def notes():
 @app.route('/edit_post_<post_id>', methods = ['GET', 'POST'])
 @login_required
 def edit(post_id):
+	user = g.user
+	post = Post.query.get(post_id)	
+	if user != post.author:
+		flash('Access denied')
+		return redirect(url_for('index'))
         form = EditForm()
 	if form.validate_on_submit():
 		post = Post.query.get(post_id)
