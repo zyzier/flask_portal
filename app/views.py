@@ -77,19 +77,6 @@ def adduser(nickname, password):
 	flash ('all is ok!')
 	return redirect(url_for('index'))
 
-#User page. For now it's just Posts like in notes page
-#For link to it, need to past it to html template:
-#<a href="{{ url_for('user', nickname = g.user.nickname) }}">UserPage</a>
-#@app.route('/<nickname>')
-#@login_required
-#def user(nickname):
-#	user = User.query.filter_by(nickname = nickname).first()
-#	posts = g.user.posts.all()
-#	if user == None:
-#		flash('User: ' + nickname + 'not found.')
-#		return redirect(url_for('index'))
-#	return render_template('user.html', user = user, posts = posts)
-
 @app.route('/notes', methods = ['GET'])
 @app.route('/notes/<int:page>', methods = ['GET'])
 @login_required
@@ -158,7 +145,6 @@ def edit(post_id):
 def view_post(post_id):
 	user = g.user
 	post = Post.query.get(post_id)
-	#post.body = Markup(markdown(post.body))
 	return render_template('view_post.html', user = user, post = post)
 
 #Filters:
