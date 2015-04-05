@@ -3,36 +3,36 @@
 
 {% block content %}
 <div class="well">
-<form class="form-horizontal" action="" method="post" name="login">
-	{{form.hidden_tag()}}
-	<legend>Sign in</legend>
-	<div class="form-group{% if form.errors.login %} error{% endif %}">
-		<div class="contorls">
-			{{form.login(class="form-control", placeholder="Nickname")}}
-			{% for error in form.errors.login %}
-			        <span class="help-inline">[{{error}}]</span><br>
-		        {% endfor %}
-		</div>
-	</div>
-        <div class="form-group{% if form.errors.password %} error{% endif %}">
-                <div class="controls">
-                        {{form.password(class="form-control", placeholder="Password")}}
-                        {% for error in form.errors.password %}
-                                <span class="help-inline">[{{error}}]</span><br>
-                        {% endfor %}
-                </div>
+    <form class="form-horizontal" action="" method="post" name="login">
+        {{form.hidden_tag()}}
+        <legend>Sign in</legend>
+        <div class="form-group{% if form.errors.login %} error{% endif %}">
+            <div class="contorls col-xs-3">
+                {{form.login(class="form-control", placeholder="Nickname")}}
+                {% for error in form.errors.login %}
+                <span class="help-inline">[{{error}}]</span><br>
+                {% endfor %}
+            </div>
         </div>
-	<div class="form-group">
-            <div class="checkbox">
+        <div class="form-group{% if form.errors.password %} error{% endif %}">
+            <div class="controls col-xs-3">
+                {{form.password(class="form-control", placeholder="Password")}}
+                {% for error in form.errors.password %}
+                <span class="help-inline">[{{error}}]</span><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox col-xs-3">
                 <label>{{ form.remember_me }} Remember Me</label>
             </div>
-	</div>
-	<div class="form-group">
-            <div class="controls">
+        </div>
+        <div class="form-group">
+            <div class="controls col-xs-3">
                 <input class="btn btn-success" type="submit" value="Sign In">
             </div>
         </div>
-</form>
+    </form>
 </div>
 {% endblock %}
 

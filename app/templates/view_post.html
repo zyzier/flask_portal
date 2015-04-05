@@ -1,26 +1,32 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<table>
-    <tr valign="top">
-        <td>
-            <h1>Post # {{post.id}}</h1>
-            author: {{post.author.nickname}}
-            {% if post.timestamp %}
-            <p><i>Last modified: {{post.timestamp}}</i></p>
-            {% endif %}
-        </td>
-    </tr>
-</table>
-<hr>
-<div>
-    <p>
-        <center>Title: <b>{{post.title}}</b></center>
-        <p><pre>{{post.body}}</pre></p>
-        {% if post.author.nickname == user.nickname %}
-	<p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a></p>
-	{% endif %}
-        <p><a href="{{url_for('index')}}"><input type="button" value="Back"></a></p>		
-    </p>
+<i>author:</i> {{post.author.nickname}}
+{% if post.timestamp %}
+<p><i>Last modified:</i> {{post.timestamp}}</p>
+{% endif %}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><center><b>{{post.title}}</b></center>
+    </div>
+    <div class="panel-body">
+        <pre>{{post.body}}</pre>
+    </div>
+</div>
+{% if post.author.nickname == user.nickname %}
+<div class="form-group">
+    <div class="controls">
+        <a href="{{url_for('edit', post_id = post.id)}}">
+            <input class="btn btn-success" type="button" value="Edit">
+        </a>
+    </div>
+</div>
+{% endif %}
+<div class="form-group">
+    <div class="controls">
+        <a href="{{url_for('index')}}">
+            <input class="btn btn-success" type="button" value="Back">
+        </a>
+    </div>
 </div>
 {% endblock %}

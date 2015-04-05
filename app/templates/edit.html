@@ -2,29 +2,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Edit Post</h1>
-<form action="" method="post" name="edit">
+<form class="form-horizontal" action="" method="post" name="edit">
     {{form.hidden_tag()}}
-    <table>
-        <tr>
-            <td>Title:</td>
-            <td>{{form.title(size = 50)}}</td>
+    <legend>Edit post</legend>
+    <div class="form-group{% if form.errors.title %} error{% endif %}">
+        <div class="controls col-xs-2">
+            {{form.title(class="form-control")}}
             {% for error in form.errors.title %}
-            <span style="color: red;">[{{error}}]</span>
-            {% endfor %}<br>
-        </tr>
-        <tr>
-            <td>Body:</td>
-            <td>{{form.post(cols = 150, rows = 15)}}</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" name ="save" value="Save Changes"></td>
-            <td><a href="{{url_for('notes')}}"><input type="button" value="Back"></td>
-        </tr>
-        <tr>
-            <td><p><input type="submit" name="delete" value="Delete"></p></td>
-        </tr>
-    </table>
+            <span class="help-inline">[{{error}}]</span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="controls col-xs-6">
+        {{form.post(rows = "15", class="form-control")}}     
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="controls col-xs-2">
+            <input class="btn btn-success" name="save" type="submit" value="Save changes">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="controls col-xs-2">
+            <a href="{{url_for('notes')}}">
+                <input class="btn btn-success" name="save" type="button" value="Back">
+            </a>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="controls col-xs-2">
+            <input class="btn btn-success" name="delete" type="submit" value="Delete">
+        </div>
+    </div>
 </form>
 {% endblock %}
