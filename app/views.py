@@ -158,12 +158,16 @@ def edit(post_id):
 def view_post(post_id):
 	user = g.user
 	post = Post.query.get(post_id)
+	#post.body = Markup(markdown(post.body))
 	return render_template('view_post.html', user = user, post = post)
 
-#Try to view XML
-#@app.route('/testxml')
-#def xml():
-#	return render_template('db_visual.xml')
+#Filters:
+#1.Markdown. For using in template just add {{data|markdown}}
+@app.template_filter('markdown')
+def markdown_filter(data):
+	from flask import Markup
+	from markdown2 import markdown
+	return Markup(markdown(data))
 
 #Error Handlers
 @app.errorhandler(404)

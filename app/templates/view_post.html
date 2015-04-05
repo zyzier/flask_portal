@@ -10,7 +10,7 @@
         <h3 class="panel-title"><center><b>{{post.title}}</b></center>
     </div>
     <div class="panel-body">
-        <pre>{{post.body}}</pre>
+        {{post.body|markdown}}
     </div>
 </div>
 {% if post.author.nickname == user.nickname %}
