@@ -4,7 +4,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from datetime import datetime
 from app import app, db, lm
 from forms import LoginForm, EditForm, CheckServerForm
-from models import User, Post, ROLE_USER, ROLE_ADMIN
+from models import User, Post, ROLE_USER, ROLE_ADMIN, bcrypt
 #For working with commandline it's better to use subprocesses unlike os module
 from subprocess import Popen, PIPE
 from config import POSTS_PER_PAGE
@@ -60,20 +60,20 @@ def login():
     	#flash('Login requested="' + form.login.data + '", Password="' + form.password.data + '",remember_me=' + str(form.remember_me.data))
     	flash(str(request.headers))
     	#flash(request.get_json)
-        return after_login(form.login.data)
+        return after_login(form.login.data, form.password.data)
     return render_template('login.html', title = 'Sign In', form = form)
 
-def after_login(nickname):
+def after_login(nickname, password):
 	user = User.query.filter_by(nickname = nickname).first()
-	#check exist or not
-	if user is None or user == "":
+	if user is not None and bcrypt.check_password_hash(user.password, password):
+		remember_me = False
+		if 'remember_me' in session:
+			remember_me = session['remember_me']
+			session.pop('remember_me', None)
+			login_user(user, remember = remember_me)
+	else:
 		flash('Invalid login. Try again.')
 		return redirect(url_for('login'))
-	remember_me = False
-	if 'remember_me' in session:
-		remember_me = session['remember_me']
-		session.pop('remember_me', None)
-	login_user(user, remember = remember_me)
 	return redirect(request.args.get('next') or url_for('index'))
 
 @app.route('/logout')
