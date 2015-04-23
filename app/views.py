@@ -39,6 +39,16 @@ def summary():
         return render_template("summary.html", output = out)
     return redirect(url_for('index'))           
 
+@app.route('/torrents', methods = ['GET'])
+def torrents():
+	url = 'http://zyzier.tk:9091/transmission/web/'
+	flash(str(request.headers))
+	if g.user.role == 1:
+		import requests
+		r = requests.get(url, auth=('transmission', 'transmission'), allow_redirects=True)
+		return redirect(r)
+	return redirect(url_for('index'))
+	
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated():
@@ -48,6 +58,8 @@ def login():
     	session['remember_me'] = form.remember_me.data 
     	#we can look at data that usr input to our fields
     	#flash('Login requested="' + form.login.data + '", Password="' + form.password.data + '",remember_me=' + str(form.remember_me.data))
+    	flash(str(request.headers))
+    	#flash(request.get_json)
         return after_login(form.login.data)
     return render_template('login.html', title = 'Sign In', form = form)
 
@@ -67,14 +79,6 @@ def after_login(nickname):
 @app.route('/logout')
 def logout():
 	logout_user()
-	return redirect(url_for('index'))
-
-#Adding user
-def adduser(nickname, password):
-	newuser = User(nickname = nickname, password = password)
-	db.session.add(newuser)
-	db.session.commit()
-	flash ('all is ok!')
 	return redirect(url_for('index'))
 
 @app.route('/notes', methods = ['GET'])

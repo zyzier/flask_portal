@@ -32,6 +32,7 @@
             <ul class="nav navbar-nav">
                 {% if g.user.is_authenticated() %}
                 <li><a href="{{ url_for('notes')}}">Notes</a></li>
+		<li><a href="/torrents">Torrents</a></li>
                 {% if g.user.role == 1 %}
                 <li><a href="{{ url_for('summary')}}">Summary</a></li>
                 {% endif %}

@@ -1,5 +1,5 @@
 # coding: utf-8
-from app import db
+from app import db, bcrypt
 
 ROLE_USER = 0
 ROLE_ADMIN = 1
@@ -11,6 +11,11 @@ class User(db.Model):
     role = db.Column(db.SmallInteger, default = ROLE_USER)
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
     last_seen = db.Column(db.DateTime)
+
+    def __init__(self, nickname, password, role):
+        self.nickname = nickname
+        self.password = bcrypt.generate_password_hash(password)
+        self.role = role
 
     def is_active(self):
     	return True
