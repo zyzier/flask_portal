@@ -40,14 +40,10 @@ def summary():
     return redirect(url_for('index'))           
 
 @app.route('/torrents', methods = ['GET'])
+@login_required
 def torrents():
 	url = 'http://zyzier.tk:9091/transmission/web/'
-	flash(str(request.headers))
-	if g.user.role == 1:
-		import requests
-		r = requests.get(url, auth=('transmission', 'transmission'), allow_redirects=True)
-		return redirect(r)
-	return redirect(url_for('index'))
+	return redirect(url)
 	
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
