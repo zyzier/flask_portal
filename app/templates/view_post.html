@@ -3,7 +3,7 @@
 {% block content %}
 <i>author:</i> {{post.author.nickname}}
 {% if post.timestamp %}
-<p><i>Last modified:</i> {{post.timestamp}}</p>
+<p><i>Last modified:</i> {{ momentjs(post.timestamp).fromNow() }}</p>
 {% endif %}
 <div class="panel panel-success">
     <div class="panel-heading">
