@@ -9,7 +9,7 @@
     <p><i>Role: user</i></p>
     {% endif %}
     {% if user.last_seen %}
-    <p><i>Last seen on: {{user.last_seen}}</i></p>
+    <p><i>Last seen on: {{ momentjs(user.last_seen).calendar() }}</i></p>
     {% endif %}
 </div>
 
