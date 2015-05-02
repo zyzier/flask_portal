@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from datetime import datetime
 from app import app, db, lm
-from forms import LoginForm, EditForm, CheckServerForm
+from forms import LoginForm, EditForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN, bcrypt
 #For working with commandline it's better to use subprocesses unlike os module
 from subprocess import Popen, PIPE

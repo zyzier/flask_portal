@@ -3,8 +3,8 @@
 
 {% block content %}
 ON AIR:
-<p>{{ song.get('artist') }}</p>
-<p>{{ song.get('title') }}</p>
+<p>{{ song.get('artist').decode('utf-8') }}</p>
+<p>{{ song.get('title').decode('utf-8') }}</p>
 <form method="post">
 	<input class="btn btn-success" name="next" type="submit" value="Next">
 	<input class="btn btn-success" name="prev" type="submit" value="Prev">

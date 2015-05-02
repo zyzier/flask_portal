@@ -26,6 +26,3 @@ class EditForm(Form):
 			self.title.errors.append('This title is in use. Use fantasy Bro!')
 			return False
 		return True
-
-class CheckServerForm(Form):
-	password = PasswordField('password', validators = [InputRequired(message = 'Need admin pass')])
