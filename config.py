@@ -18,3 +18,11 @@ ADMINS = ['peps@zyzier.tk', 'pepsbox@gmail.com']
 
 #Pagination
 POSTS_PER_PAGE = 6
+
+#Additional configuretion
+#Transmission web-interface:
+TORRENT_WEB_URL = 'http://zyzier.tk:9091/transmission/web/'
+
+#MPD server:
+MPD_HOST = "89.223.57.88"
+MPD_PORT = 6600

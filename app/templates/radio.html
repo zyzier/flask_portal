@@ -1,0 +1,12 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+ON AIR:
+<p>{{ song.get('artist') }}</p>
+<p>{{ song.get('title') }}</p>
+<form method="post">
+	<input class="btn btn-success" name="next" type="submit" value="Next">
+	<input class="btn btn-success" name="prev" type="submit" value="Prev">
+</form>
+{% endblock %}

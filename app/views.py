@@ -7,7 +7,7 @@ from forms import LoginForm, EditForm, CheckServerForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN, bcrypt
 #For working with commandline it's better to use subprocesses unlike os module
 from subprocess import Popen, PIPE
-from config import POSTS_PER_PAGE
+from config import POSTS_PER_PAGE, MPD_HOST, MPD_PORT, TORRENT_WEB_URL
 
 @lm.user_loader
 def load_user(id):
@@ -31,20 +31,10 @@ def index(page = 1):
     posts = Post.query.paginate(page, POSTS_PER_PAGE, False)
     return render_template("index.html", title = 'Home', user = user, posts = posts)
 
-@app.route('/summary', methods = ['GET'])
-@login_required
-def summary():
-    if g.user.role == 1 :
-        out, err = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE).communicate()
-        return render_template("summary.html", output = out)
-    return redirect(url_for('index'))           
+###################
+## Login process ##
+###################
 
-@app.route('/torrents', methods = ['GET'])
-@login_required
-def torrents():
-	url = 'http://zyzier.tk:9091/transmission/web/'
-	return redirect(url)
-	
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if g.user is not None and g.user.is_authenticated():
@@ -52,10 +42,10 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
     	session['remember_me'] = form.remember_me.data 
-    	#we can look at data that usr input to our fields
+    	#we can look at data that usr input to our fields:
     	#flash('Login requested="' + form.login.data + '", Password="' + form.password.data + '",remember_me=' + str(form.remember_me.data))
-    	flash(str(request.headers))
-    	#flash(request.get_json)
+    	#or we can look at headers in request:
+    	#flash(str(request.headers))
         return after_login(form.login.data, form.password.data)
     return render_template('login.html', title = 'Sign In', form = form)
 
@@ -76,6 +66,20 @@ def after_login(nickname, password):
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
+
+@app.route('/summary', methods = ['GET'])
+@login_required
+def summary():
+    if g.user.role == 1 :
+        out, err = Popen(["flask/bin/python", "checkvps.py"], stdout = PIPE).communicate()
+        return render_template("summary.html", output = out)
+    return redirect(url_for('index'))           
+
+@app.route('/torrents', methods = ['GET'])
+@login_required
+def torrents():
+	url = TORRENT_WEB_URL
+	return redirect(url)
 
 @app.route('/notes', methods = ['GET'])
 @app.route('/notes/<int:page>', methods = ['GET'])
@@ -107,6 +111,10 @@ def deletepost(post_id):
 	db.session.delete(p)
 	db.session.commit()
 	return flash('Post deleted!')
+
+####################
+## Post edit page ##
+####################
 	
 @app.route('/edit_post_<post_id>', methods = ['GET', 'POST'])
 @login_required
@@ -139,13 +147,34 @@ def edit(post_id):
 		form.title.data = Post.query.get(post_id).Title()
 		return render_template('edit.html', form = form)
 
-#Post view page
+####################
+## Post view page ##
+####################
 @app.route('/post_<post_id>', methods = ['GET'])
 @login_required
 def view_post(post_id):
 	user = g.user
 	post = Post.query.get(post_id)
 	return render_template('view_post.html', user = user, post = post)
+
+######################
+## MPD control page ##
+######################
+@app.route('/radio', methods = ['GET', 'POST'])
+@login_required
+def radio():
+	import mpd
+	client = mpd.MPDClient()
+	client.connect(MPD_HOST, MPD_PORT, timeout = 60)
+	onair = client.currentsong()
+	if request.method == 'POST':
+		if 'next' in request.form:
+			client.next()
+			return redirect(url_for('radio'))
+		elif 'prev' in request.form:
+			client.previous()
+			return redirect(url_for('radio'))
+	return render_template('radio.html', song = onair)
 
 #Filters:
 #1.Markdown. For using in template just add {{data|markdown}}
