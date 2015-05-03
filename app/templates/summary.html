@@ -1,15 +1,8 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<table>
-    <tr valign="top">
-        <td>
-            <h1>Current VPS information: </h1>
-	</td>
-    </tr>
-</table>
-<hr>
-
-<pre><code>{{output}}</code></pre>
-
+<div class = "container col-md-6 col-md-offset-3">
+	<h1>Current VPS information: </h1>
+	<pre><code>{{output}}</code></pre>
+</div>
 {% endblock %}

@@ -1,10 +1,11 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<p><a href="{{url_for('edit', post_id = newpost_id)}}"><button type="button" class="btn btn-lg btn-success" value="New post">New post</button></a></p>
+<div class = "container col-md-6 col-md-offset-3">
+<p><a href="{{url_for('edit', post_id = newpost_id)}}"><button type="button" class="btn btn-lg btn-danger" value="New post">New post</button></a></p>
 <hr>
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading"><b>All your posts</b></div>
 			<!-- Table -->
@@ -12,16 +13,21 @@
 				<!-- posts is a Paginate object -->
 				{% for post in posts.items %}
 				<tr>					
-					<td width="100%">{{post.title}}</td>
-					<td><a href="{{url_for('edit', post_id = post.id)}}"><button type="button" class="btn btn-success">Edit</button></a></td>
+					<td class = "col-md-9">{{post.title}}</td>
+					<td class = "col-md-3">
+						<div class="btn-group">
+							<a href="{{url_for('view_post', post_id = post.id)}}"><button type="button" class="btn btn-default">View</button></a>
+							<a href="{{url_for('edit', post_id = post.id)}}"><button type="button" class="btn btn-default">Edit</button></a>
+						</div>
+					</td>
 				</tr>
 				{% endfor %}
 			</table>
 		</div>
 	</div>
 </div>
-	
-<ul class="pagination">
+
+<ul class="pager">
     {% if posts.has_prev %}
     <li class="previous"><a href="{{ url_for('notes', page = posts.prev_num) }}">Newer posts</a></li>
     {% else %}
@@ -33,4 +39,5 @@
     <li class="next disabled"><a href="#">Older posts</a></li>
     {% endif %}
 </ul>
+</div>
 {% endblock %}
