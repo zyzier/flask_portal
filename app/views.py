@@ -195,8 +195,8 @@ def markdown_filter(data):
 @app.template_filter('no_tag')
 def no_tag(song):
 	try:
-		artist = song.get('artist').decode('utf-8')
-		title = song.get('title').decode('utf-8')
+		artist = song['artist'].decode('utf-8')
+		title = song['title'].decode('utf-8')
 		return artist + ' - ' + title
 	except:
 		return 'NO TAG'
