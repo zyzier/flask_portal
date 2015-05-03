@@ -115,7 +115,6 @@ def deletepost(post_id):
 ####################
 ## Post edit page ##
 ####################
-	
 @app.route('/edit_post_<post_id>', methods = ['GET', 'POST'])
 @login_required
 def edit(post_id):
@@ -164,9 +163,13 @@ def view_post(post_id):
 @login_required
 def radio():
 	import mpd
-	client = mpd.MPDClient()
-	client.connect(MPD_HOST, MPD_PORT, timeout = 60)
-	onair = client.currentsong()
+	try:
+		client = mpd.MPDClient()
+		client.connect(MPD_HOST, MPD_PORT, timeout = 60)
+		onair = client.currentsong()
+	except:
+		flash('NO MPD CONNeCT!!!!')
+		return redirect(url_for('index'))
 	if request.method == 'POST':
 		if 'next' in request.form:
 			client.next()
@@ -176,13 +179,27 @@ def radio():
 			return redirect(url_for('radio'))
 	return render_template('radio.html', song = onair)
 
-#Filters:
+###################
+## Filters and   ##
+## ErrorHandlers ##
+###################
+
 #1.Markdown. For using in template just add {{data|markdown}}
 @app.template_filter('markdown')
 def markdown_filter(data):
 	from flask import Markup
 	from markdown2 import markdown
 	return Markup(markdown(data))
+
+#2.MPD no tag cheking.
+@app.template_filter('no_tag')
+def no_tag(song):
+	try:
+		artist = song.get('artist').decode('utf-8')
+		title = song.get('title').decode('utf-8')
+		return artist + ' - ' + title
+	except:
+		return 'NO TAG'
 
 #Error Handlers
 @app.errorhandler(404)
