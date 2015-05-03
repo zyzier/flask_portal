@@ -1,31 +1,62 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<div class="jumbotron">
-    <h1>Hi, {{user.nickname}}!</h1>
-    {% if user.role == 1 %}
-    <p><i>Role: admin</i></p>
-    {% elif user.role == 0 %}
-    <p><i>Role: user</i></p>
-    {% endif %}
-    {% if user.last_seen %}
-    <p><i>Last seen on: {{ momentjs(user.last_seen).calendar() }}</i></p>
-    {% endif %}
+<div id = "masterhead">
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-md-7">
+            <h1>Hi, {{user.nickname}}!
+                <p class = "lead">
+                    {% if user.role == 1 %} Admin
+                    {% elif user.role == 0 %} User
+                    {% endif %}
+                    {% if user.last_seen %}
+                    Last seen on: {{ momentjs(user.last_seen).calendar() }}
+                    {% endif %}
+                </p>
+            </h1>
+            </div>
+            <div class = "col-md-5">
+                <div class = "well well-lg">
+                    <div class = "row">
+                        <div class = "col-sm-12">
+                            Some anounce or Ad
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /cont-->
 </div>
 
 <div class="container">
-<div class="row row-offcanvas row-offcanvas-right">
     <div class="row">
-        <!-- posts is a Paginate object -->
-        {% for post in posts.items %}
-        <div class="col-xs-6">
-            <h2>{{post.title}}</h2>
-            <p><strong>Note#{{post.id}}</strong><i> by {{post.author.nickname}}</i></p>
-            <p><a class="btn btn-default" href="{{url_for('view_post', post_id = post.id)}}" role="button">View details »</a></p>
-        </div><!--/span-->
-        {% endfor %}
+        <div class="col-md-12">
+            <div class = "panel">
+                <div class = "panel-body">
+                    <!-- posts is a Paginate object -->
+                    {% for post in posts.items %}
+                    <div class="row">
+                        <br>
+                        <div class = "col-md-2 col-sm-3 text-center">
+                            <a class = "story-img" href="#"><img src="//placehold.it/100" style = "width:100px;height:100px" class = "img-circle"></a>
+                        </div>
+                        <div class = "col-md-10 col-sm-9">
+                            <h3>{{post.title}}</h3>
+                            <div class = "row">
+                                <div class = "col-xs-9">
+                                    <p>Note#{{post.id}}<i>by {{post.author.nickname}}</i></p>
+                                    <p class = "lead"><a class="btn btn-default" href="{{url_for('view_post', post_id = post.id)}}" role="button">View details »</a></p>
+                                </div>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 
 <ul class="pagination">
