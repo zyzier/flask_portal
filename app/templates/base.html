@@ -47,22 +47,21 @@
       </div><!--/.nav-collapse -->
     </div>
   </nav>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <div class="alert alert-success">
-    <ul>
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-  {% endwith %}
 
-  <div class="container">
-    {% block content %}
-    {% endblock %}
-  </div><!-- /.container -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-success">
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endwith %}
+
+{% block content %}
+{% endblock %}
 <!-- Bootstrap core JavaScript -->
 <!-- Placed at the end of the document so the page load faster -->
 <script src="/static/js/bootstrap.min.js"></script>
