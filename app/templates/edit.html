@@ -2,11 +2,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class = "container col-md-6 col-md-offset-3">
 <form class="form-horizontal" action="" method="post" name="edit">
     {{form.hidden_tag()}}
     <legend>Edit post</legend>
     <div class="form-group{% if form.errors.title %} error{% endif %}">
-        <div class="controls col-xs-2">
+        <div class="controls col-md-6">
             {{form.title(class="form-control")}}
             {% for error in form.errors.title %}
             <span class="help-inline">[{{error}}]</span>
@@ -14,26 +15,17 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="controls col-xs-6">
+        <div class="controls col-md-12">
         {{form.post(rows = "15", class="form-control")}}     
         </div>
     </div>
     <div class="form-group">
-        <div class="controls col-xs-2">
+        <div class="controls col-md-12">
             <input class="btn btn-success" name="save" type="submit" value="Save changes">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="controls col-xs-2">
-            <a href="{{url_for('notes')}}">
-                <input class="btn btn-success" name="save" type="button" value="Back">
-            </a>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="controls col-xs-2">
-            <input class="btn btn-success" name="delete" type="submit" value="Delete">
+            <a href="{{url_for('notes')}}"><input class="btn btn-default" name="save" type="button" value="Back"></a>
+            <input class="btn btn-danger" name="delete" type="submit" value="Delete">
         </div>
     </div>
 </form>
+</div>
 {% endblock %}

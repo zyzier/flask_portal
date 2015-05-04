@@ -28,7 +28,7 @@ def before_request():
 def index(page = 1):
     user = g.user
     #Using Pagination for regulation posts per page
-    posts = Post.query.paginate(page, POSTS_PER_PAGE, False)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(page, POSTS_PER_PAGE, False)
     return render_template("index.html", title = 'Home', user = user, posts = posts)
 
 ###################
@@ -101,7 +101,7 @@ def notes(page = 1):
 #Creating post by new post_id with empty body 
 def newpost(post_id):
 	user = g.user
-	post = Post(id = post_id, timestamp = datetime.utcnow(), author = user)
+	post = Post(id = post_id, title = "Some title", timestamp = datetime.utcnow(), author = user)
 	db.session.add(post)
 	db.session.commit()
 	#flash('New post %s created!') % post.id

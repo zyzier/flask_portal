@@ -1,32 +1,26 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<i>author:</i> {{post.author.nickname}}
-{% if post.timestamp %}
-<p><i>Last modified:</i> {{ momentjs(post.timestamp).fromNow() }}</p>
-{% endif %}
-<div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title"><center><b>{{post.title}}</b></center>
+<div class = "container col-md-6 col-md-offset-3">
+    <i>author:</i> {{post.author.nickname}}
+    {% if post.timestamp %}
+    <p><i>Last modified:</i> {{ momentjs(post.timestamp).fromNow() }}</p>
+    {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><center><b>{{post.title}}</b></center>
+        </div>
+        <div class="panel-body">
+            {{post.body|markdown}}
+        </div>
     </div>
-    <div class="panel-body">
-        {{post.body|markdown}}
-    </div>
-</div>
-{% if post.author.nickname == user.nickname %}
-<div class="form-group">
-    <div class="controls">
-        <a href="{{url_for('edit', post_id = post.id)}}">
-            <input class="btn btn-success" type="button" value="Edit">
-        </a>
-    </div>
-</div>
-{% endif %}
-<div class="form-group">
-    <div class="controls">
-        <a href="{{url_for('index')}}">
-            <input class="btn btn-success" type="button" value="Back">
-        </a>
+    <div class="form-group col-md-4">
+        <div class="controls">
+            {% if post.author.nickname == user.nickname %}
+            <a href="{{url_for('edit', post_id = post.id)}}"><input class="btn btn-default" type="button" value="Edit"></a>
+            {% endif %}
+            <a href="{{url_for('index')}}"><input class="btn btn-default" type="button" value="Back"></a>
+        </div>
     </div>
 </div>
 {% endblock %}

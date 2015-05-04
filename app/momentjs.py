@@ -1,3 +1,4 @@
+# coding: utf-8
 #Markup using for not escaping <script> tag
 from jinja2 import Markup
 

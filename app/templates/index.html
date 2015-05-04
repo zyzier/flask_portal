@@ -45,7 +45,7 @@
                             <h3>{{post.title}}</h3>
                             <div class = "row">
                                 <div class = "col-xs-9">
-                                    <p>Note#{{post.id}}<i>by {{post.author.nickname}}</i></p>
+                                    <p>Note#{{post.id}}<i>by {{post.author.nickname}}</i> modified: {{ momentjs(post.timestamp).calendar() }}</p>
                                     <p class = "lead"><a class="btn btn-default" href="{{url_for('view_post', post_id = post.id)}}" role="button">View details »</a></p>
                                 </div>
                             </div>

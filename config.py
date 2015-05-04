@@ -17,7 +17,7 @@ MAIL_PASSWORD = None
 ADMINS = ['peps@zyzier.tk', 'pepsbox@gmail.com']
 
 #Pagination
-POSTS_PER_PAGE = 6
+POSTS_PER_PAGE = 3
 
 #Additional configuretion
 #Transmission web-interface:
