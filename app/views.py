@@ -67,6 +67,10 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
+###########
+## PAGES ##
+###########
+
 @app.route('/summary', methods = ['GET'])
 @login_required
 def summary():
