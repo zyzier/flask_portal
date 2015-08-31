@@ -90,7 +90,7 @@ def torrents():
 @login_required
 def notes(page = 1):
 	user = g.user
-	posts = g.user.posts.paginate(page, POSTS_PER_PAGE, False)
+	posts = g.user.posts.paginate(page, 20, False) #20 - post's count on page
 	if user == None:
 		flash('User: ' + nickname + 'not found.')
 		return redirect(url_for('index'))
