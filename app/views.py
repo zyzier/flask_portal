@@ -79,11 +79,13 @@ def summary():
         return render_template("summary.html", output = out)
     return redirect(url_for('index'))           
 
-@app.route('/torrents', methods = ['GET'])
+@app.route('/fail2ban', methods = ['GET', 'POST'])
 @login_required
-def torrents():
-	url = TORRENT_WEB_URL
-	return redirect(url)
+def fail2ban():
+	if g.user.role == 1:
+		out, err = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE).communicate()
+        return render_template("f2b.html", status = out.decode('utf-8'))
+	return redirect(url_for('index'))
 
 @app.route('/notes', methods = ['GET'])
 @app.route('/notes/<int:page>', methods = ['GET'])

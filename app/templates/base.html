@@ -37,9 +37,9 @@
         <ul class="nav navbar-nav">
           {% if g.user.is_authenticated() %}
           <li><a href="{{ url_for('notes')}}">Notes</a></li>
-          <li><a href="/torrents">Torrents</a></li>
           <li><a href="/radio">Radio</a></li>
           {% if g.user.role == 1 %}
+          <li><a href="/fail2ban">F2B</a></li>
           <li><a href="{{ url_for('summary')}}">Summary</a></li>
           {% endif %}
           <li><a href="/logout">Logout</a></li>
