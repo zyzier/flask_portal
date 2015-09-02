@@ -7,6 +7,8 @@
 	<a class="btn btn-success btn-large" href="/fail2ban/start">Start</a>
 	<a class="btn btn-danger btn-large" href="/fail2ban/stop">Stop</a>
 	<h2>Banned IP: </h2>
-	<p><code>{{ banned }}</code></p>
+	{% for ip in banned %}
+		<p><code>{{ ip }}</code></p>
+	{% endfor %}
 </div>
 {% endblock %}
