@@ -83,8 +83,10 @@ def summary():
 @login_required
 def fail2ban():
 	if g.user.role == 1:
-		out, err = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE).communicate()
-        return render_template("f2b.html", status = out.decode('utf-8'))
+		#out, err = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE).communicate()
+		f = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE)
+		sed = Popen(['sed', '-n', 's/Active://p'], stdin = f.stdout, stdout = PIPE).communicate()
+        return render_template("f2b.html", status = sed[0])
 	return redirect(url_for('index'))
 
 @app.route('/notes', methods = ['GET'])
