@@ -67,9 +67,9 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
-###########
-## PAGES ##
-###########
+#################
+## System info ##
+#################
 
 @app.route('/summary', methods = ['GET'])
 @login_required
@@ -79,15 +79,34 @@ def summary():
         return render_template("summary.html", output = out)
     return redirect(url_for('index'))           
 
+
+##############
+## Fail2Ban ##
+##############
+
 @app.route('/fail2ban', methods = ['GET', 'POST'])
 @login_required
 def fail2ban():
 	if g.user.role == 1:
-		#out, err = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE).communicate()
-		f = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE)
-		sed = Popen(['sed', '-n', 's/Active://p'], stdin = f.stdout, stdout = PIPE).communicate()
-        return render_template("f2b.html", status = sed[0])
+		#Satus check
+		cmd = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE)
+		status = Popen(['sed', '-n', 's/Active://p'], stdin = cmd.stdout, stdout = PIPE).communicate()
+        return render_template("f2b.html", status = status[0])
 	return redirect(url_for('index'))
+
+@app.route('/fail2ban/start', methods = ['GET', 'POST'])
+def f2bstart():
+	cmd = Popen(["sudo", "service", "fail2ban", "start"], stdout = PIPE)
+	return redirect(url_for('fail2ban'))
+
+@app.route('/fail2ban/stop', methods = ['GET', 'POST'])
+def f2bstop():
+	cmd = Popen(["sudo", "service", "fail2ban", "stop"], stdout = PIPE)
+	return redirect(url_for('fail2ban'))
+
+###########
+## NOTES ##
+###########
 
 @app.route('/notes', methods = ['GET'])
 @app.route('/notes/<int:page>', methods = ['GET'])
