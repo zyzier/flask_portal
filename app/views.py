@@ -95,14 +95,20 @@ def fail2ban():
 	return redirect(url_for('index'))
 
 @app.route('/fail2ban/start', methods = ['GET', 'POST'])
+@login_required
 def f2bstart():
-	cmd = Popen(["sudo", "service", "fail2ban", "start"], stdout = PIPE)
-	return redirect(url_for('fail2ban'))
+	if g.user.role == 1:
+		cmd = Popen(["sudo", "service", "fail2ban", "start"], stdout = PIPE)
+		return redirect(url_for('fail2ban'))
+	return redirect(url_for('index'))
 
 @app.route('/fail2ban/stop', methods = ['GET', 'POST'])
+@login_required
 def f2bstop():
-	cmd = Popen(["sudo", "service", "fail2ban", "stop"], stdout = PIPE)
-	return redirect(url_for('fail2ban'))
+	if g.user.role == 1:
+		cmd = Popen(["sudo", "service", "fail2ban", "stop"], stdout = PIPE)
+		return redirect(url_for('fail2ban'))
+	return redirect(url_for('index'))
 
 ###########
 ## NOTES ##
