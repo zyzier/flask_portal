@@ -89,9 +89,12 @@ def summary():
 def fail2ban():
 	if g.user.role == 1:
 		#Satus check
-		cmd = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE)
-		status = Popen(['sed', '-n', 's/Active://p'], stdin = cmd.stdout, stdout = PIPE).communicate()
-        return render_template("f2b.html", status = status[0])
+		cmd1 = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE)
+		status = Popen(['sed', '-n', 's/Active://p'], stdin = cmd1.stdout, stdout = PIPE).communicate()
+		#List banned IPs
+		#cmd2 = Popen(['cat', '/var/log/fail2ban.log'])
+		banned = Popen(['sed', '-n', 's/.*Ban //p', '/var/log/fail2ban.log'], stdout = PIPE).communicate()
+		return render_template("f2b.html", status = status[0], banned = banned[0])
 	return redirect(url_for('index'))
 
 @app.route('/fail2ban/start', methods = ['GET', 'POST'])
