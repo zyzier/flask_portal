@@ -59,6 +59,8 @@
             </div>
         </div>
     </div>
+
+<!--PAGER-->
 <ul class="pager">
     {% if posts.has_prev %}
     <li class="previous"><a href="{{ url_for('index', page = posts.prev_num) }}">Newer posts</a></li>
@@ -71,6 +73,7 @@
     <li class="next disabled"><a href="#">Older posts</a></li>
     {% endif %}
 </ul>
+
 </div>
 {% endblock %}
 
