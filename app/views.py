@@ -67,6 +67,14 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
+##########
+## WEED ##
+##########
+
+@app.route('/shop', methods = ['GET', 'POST'])
+def shop():
+	return render_template("shop.html")
+
 #################
 ## System info ##
 #################
