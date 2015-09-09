@@ -1,0 +1,163 @@
+﻿
+/*=============================================================
+    Authour URL: www.designbootstrap.com
+    
+    http://www.designbootstrap.com/
+
+    License: MIT
+
+    http://opensource.org/licenses/MIT
+
+    100% Free To use For Personal And Commercial Use.
+
+    IN EXCHANGE JUST TELL PEOPLE ABOUT THIS WEBSITE
+   
+========================================================  */
+
+
+/* =============================================================
+   GENERAL STYLES
+ ============================================================ */
+
+@import url(http://fonts.googleapis.com/css?family=Montserrat); /* FREE GOOGLE FONT */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+/* =============================================================
+   HEAD SECTION STYLES
+ ============================================================ */
+
+#head {
+    background: url(../img/header.jpg) no-repeat center center;
+    padding: 0;
+    -webkit-background-size: cover;
+    background-size: cover;
+    -moz-background-size: cover;
+    color: #fff;
+}
+    #head a.logo,#head a.logo:hover {
+        text-decoration:none;
+        color:#fff;
+    }
+    #head .overlay {
+        background-color: rgba(40, 40, 40, 0.8);
+        min-height: 300px;
+    }
+
+    #head h1 {
+        font-family: 'Wire One', sans-serif;
+        color: #fff;
+        font-size: 50px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        line-height: 55px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        text-transform: uppercase;
+    }
+
+    #head p {
+        font-weight: 900;
+        line-height: 35px;
+        font-size: 16px;
+        padding-bottom: 40px;
+        color: #46beac;
+    }
+
+.adv-div {
+    vertical-align: middle;
+    color: #808080;
+    margin: 30px;
+}
+/*=====================================
+    SOCIAL BUTTON STYLES
+======================================*/
+.social-wrapper {
+    margin-top: 30px;
+}
+
+    .social-wrapper .btn-social {
+        color: white;
+        background-color: rgba(92, 92, 92, 0.38);
+
+    }
+
+        .social-wrapper .btn-social:hover {
+            text-decoration: none;
+        }
+
+   
+
+
+/* =============================================================
+   BLOG SECTION STYLES
+ ============================================================ */
+#blog {
+    min-height:400px;
+}
+.img-blog {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+.custom-blog {
+    padding-bottom: 30px;
+    border-bottom: 1px dotted #e1e1e1;
+    margin-bottom: 30px;
+}
+
+    .custom-blog p {
+        padding-bottom: 10px;
+    }
+
+    .custom-blog h1 {
+        padding-bottom: 20px;
+        color: #46beac;
+        line-height: 50px;
+    }
+
+.page-set {
+    text-align:center;
+    padding:5px;
+}
+/*================================
+    COMMENT STYLES
+ ============================  */
+.comment-sec h1 {
+    padding-bottom:30px;
+}
+.comment-sec .comment-wrapper {
+    padding:20px;
+    border:1px dashed rgba(92, 92, 92, 0.38);
+    margin:10px;
+}
+.set-post {
+    padding:20px;
+    margin:10px;
+}
+/*================================
+    FOOTER SECTION STYLES
+ ============================  */
+footer {
+    padding: 20px;
+    color: #46beac;
+    font-size: 16px;
+    background-color: rgba(16, 16, 16, 0.9);
+}
+
+    footer a, footer a:hover, footer a:focus {
+        color: #46beac;
+        text-decoration: none;
+        margin-right: 10px;
+        margin-left: 10px;
+    }

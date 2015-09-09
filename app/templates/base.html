@@ -24,20 +24,54 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
-		<style>
-			body {padding-top: 70px;}
-			.footer {
-				position: absolute;
-				bottom: 0;
-				width: 100%;
-				margin-top: -70px; /* negative value of footer height */
-				height: 70px;
+		
+		<style type="text/css">
+			/* Sticky footer styles-------------------------------------------------- */
+			html,body {
+			height: 100%;/* The html and body elements cannot have any padding or margin. */
+			}
+			/* Wrapper for page content to push down footer */
+			#wrap {
+				min-height: 100%;
+				height: auto !important;
+				height: 100%;
+				/* Negative indent footer by it's height */
+				margin: 0 auto -60px;
+			}
+			/* Set the fixed height of the footer here */
+			#push,
+			#footer {
+				height: 60px;
+			}
+			#footer {
 				background-color: #f5f5f5;
-			} 
-		</style>
+			}
+			/* Lastly, apply responsive CSS fixes as necessary */
+			@media (max-width: 767px) {
+				#footer {
+					margin-left: -20px;
+					margin-right: -20px;
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+			}
+			/* Custom page CSS-------------------------------------------------- */
+			/* Not required for template or sticky footer method. */
+			#wrap > .container {
+				padding-top: 60px;
+			}
+			.container .credit {
+				margin: 20px 0;
+			}
+			code {
+				font-size: 80%;
+			}
+	    </style>
+		<link href="/static/css/bootstrap-responsive.css" rel="stylesheet" />
+		
 	</head>
 <body>
+<div id="wrap">
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -65,7 +99,7 @@
     </div>
   </nav>
 
-<div class = "container">
+<div class="container">
 	{% with messages = get_flashed_messages() %}
 	{% if messages %}
 		<div class="alert alert-success">
@@ -81,29 +115,22 @@
 
 	{% block content %}
 	{% endblock %}
-
+	<div id="push"></div>
+</div><!-- WRAP SECTION END-->
 <!-- PORTAL SECTION END-->
 
-<div class="navbar-fixed-bottom row-fluid">
-	<div class="navbar-inner">
-		<div class="container">
-		<footer class=footer>
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					&copy; 2015 Korobeynikov.Club | by<a href="http://korobeynikov.club/" target="_blank">K.Club </a>
-					</div>
-				</div>
-			</div>
-		</footer class=footer>
-		</div>
+<!-- Footer -->
+<div id="footer">
+	<div class="container">
+	<p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
 	</div>
 </div>
+<!-- Footer End -->
 <!-- FOOTER SECTION END-->
 
 	<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME -->
 	<!-- CORE JQUERY -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<!-- BOOTSTRAP SCRIPTS -->
 	<script src="/static/js/bootstrap.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>

@@ -1,7 +1,7 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
-<div class = "container col-md-6 col-md-offset-3">
+<div class = "container">
     <i>author:</i> {{post.author.nickname}}
     {% if post.timestamp %}
     <p><i>Last modified:</i> {{ momentjs(post.timestamp).fromNow() }}</p>
