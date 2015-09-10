@@ -3,16 +3,12 @@
 
 {% block content %}
 <div class = "container">
-	<form class="form-horizontal" method="post">
-		<fieldset>
-			<legend>ON AIR: {{ song | no_tag }}</legend>
-			<div class="form-group">
-				<div class="col-md-6 col-md-offset-3">
-					<input class="btn btn-default" name="prev" type="submit" value="Prev">
-					<input class="btn btn-default" name="next" type="submit" value="Next">
-				</div>
-			</div>
-		</fieldset>
-	</form>
+<p><h1>ON AIR:</h1>{{ song | no_tag }}</p>
+<form class="form-horizontal" method="post">
+	<div class="form-group">
+		<input class="btn btn-default" name="prev" type="submit" value="Prev">
+		<input class="btn btn-default" name="next" type="submit" value="Next">
+	</div>
+</form>
 </div>
 {% endblock %}

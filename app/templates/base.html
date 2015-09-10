@@ -58,10 +58,10 @@
 			/* Custom page CSS-------------------------------------------------- */
 			/* Not required for template or sticky footer method. */
 			#wrap > .container {
-				padding-top: 60px;
+				padding-top: 30px;
 			}
 			.container .credit {
-				margin: 20px 0;
+				margin: 0px 0;
 			}
 			code {
 				font-size: 80%;
@@ -72,7 +72,7 @@
 	</head>
 <body>
 <div id="wrap">
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -81,7 +81,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">K.Club</a>
+        <a class="navbar-brand" href="{{url_for('index')}}">K.Club</a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
@@ -97,7 +97,7 @@
         </ul>
       </div><!--/.nav-collapse -->
     </div>
-  </nav>
+  </div>
 
 <div class="container">
 	{% with messages = get_flashed_messages() %}
@@ -122,7 +122,7 @@
 <!-- Footer -->
 <div id="footer">
 	<div class="container">
-	<p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+	<p class="muted credit">оГО цапирайт! <a href="https://korobeynikov.club">K.club</a> made by some guy and <a href="https://google.ru">Google</a>.</p>
 	</div>
 </div>
 <!-- Footer End -->
