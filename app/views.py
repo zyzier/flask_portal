@@ -87,6 +87,14 @@ def summary():
         return render_template("summary.html", output = out)
     return redirect(url_for('index'))           
 
+################
+## Tools page ##
+################
+
+@app.route('/tools', methods = ['GET'])
+#@login_required
+def tools():
+	return render_template("tools.html")
 
 ##############
 ## Fail2Ban ##

@@ -11,7 +11,6 @@
 		{% endif %}
 		<!-- JS for converting timestamps's -->
 		<script src="/static/js/moment.min.js"></script>
-
 		<!-- BOOTSTRAP CORE STYLE CSS -->
 		<link href="/static/css/bootstrap.css" rel="stylesheet" />
 		<!-- FONTAWESOME STYLE CSS -->
@@ -98,6 +97,7 @@
           {% if g.user.is_authenticated() %}
           <li><a href="{{ url_for('notes')}}">Notes</a></li>
           <li><a href="/radio">Radio</a></li>
+          <li><a href="/tools">Tools</a></li>
           {% if g.user.role == 1 %}
           <li><a href="/fail2ban">F2B</a></li>
           <li><a href="{{ url_for('summary')}}">Summary</a></li>
