@@ -2,13 +2,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class = "container">
-<p><h1>ON AIR:</h1>{{ song | no_tag }}</p>
-<form class="form-horizontal" method="post">
-	<div class="form-group">
-		<input class="btn btn-default" name="prev" type="submit" value="Prev">
-		<input class="btn btn-default" name="next" type="submit" value="Next">
-	</div>
-</form>
+<div class="container">
+	<p><h1>ON AIR:</h1>{{ song | no_tag }}</p>
+	<form class="form-horizontal" method="post">
+		<div class="form-group text-center">
+			<input class="btn btn-default" name="prev" type="submit" value="Prev">
+			<input class="btn btn-default" name="next" type="submit" value="Next">
+		</div>
+	</form>
 </div>
 {% endblock %}

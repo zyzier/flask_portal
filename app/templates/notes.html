@@ -4,27 +4,23 @@
 <div class = "container">
 <p><a href="{{url_for('edit', post_id = newpost_id)}}"><button type="button" class="btn btn-lg btn-danger" value="New post">New post</button></a></p>
 <hr>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading"><b>All your posts</b></div>
-			<!-- Table -->
-			<table class="table">
-				<!-- posts is a Paginate object -->
-				{% for post in posts.items %}
-				<tr>					
-					<td class = "col-md-9">{{post.title}}</td>
-					<td class = "col-md-3">
-						<div class="btn-group">
-							<a href="{{url_for('view_post', post_id = post.id)}}"><button type="button" class="btn btn-default">View</button></a>
-							<a href="{{url_for('edit', post_id = post.id)}}"><button type="button" class="btn btn-default">Edit</button></a>
-						</div>
-					</td>
-				</tr>
-				{% endfor %}
-			</table>
-		</div>
-	</div>
+<div class="panel panel-default">
+	<div class="panel-heading"><b>All your posts</b></div>
+	<!-- Table -->
+	<table class="table">
+		<!-- posts is a Paginate object -->
+		{% for post in posts.items %}
+		<tr>
+			<td>{{post.title}}</td>
+			<td class="text-right">
+				<div class="btn-group">
+				<a href="{{url_for('view_post', post_id = post.id)}}"><button type="button" class="btn btn-default">View</button></a>
+				<a href="{{url_for('edit', post_id = post.id)}}"><button type="button" class="btn btn-default">Edit</button></a>
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
 </div>
 
 <ul class="pager">
