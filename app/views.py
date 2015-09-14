@@ -100,9 +100,11 @@ def fail2ban():
 		cmd1 = Popen(["sudo", "service", "fail2ban", "status"], stdout = PIPE)
 		status = Popen(['sed', '-n', 's/Active://p'], stdin = cmd1.stdout, stdout = PIPE).communicate()
 		#Find banned IPs and making tuple
-		sedlog = Popen(['sed', '-n', 's/.*Ban //p', '/var/log/fail2ban.log'], stdout = PIPE).communicate()
+		sedlog = Popen(['sed', '-n', 's/.*Ban //p', '/var/log/fail2ban.log', '/var/log/fail2ban.log.1'], stdout = PIPE).communicate()
 		#Making list from tuple item (string)
 		bannedlist = sedlog[0].split("\n")
+		#Removing last empty element from string
+		bannedlist = bannedlist[:-1]
 		return render_template("f2b.html", status = status[0], banned = set(bannedlist))
 	return redirect(url_for('index'))
 
