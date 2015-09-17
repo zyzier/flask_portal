@@ -18,8 +18,10 @@
         <div class="controls">
             {% if post.author.nickname == user.nickname %}
             <a href="{{url_for('edit', post_id = post.id)}}"><input class="btn btn-default" type="button" value="Edit"></a>
-            {% endif %}
+            <a href="{{url_for('notes')}}"><input class="btn btn-default" type="button" value="Back"></a>
+            {% else %}
             <a href="{{url_for('index')}}"><input class="btn btn-default" type="button" value="Back"></a>
+			{% endif %}
         </div>
     </div>
 </div>
