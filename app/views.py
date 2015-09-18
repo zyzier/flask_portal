@@ -75,6 +75,15 @@ def logout():
 def shop():
 	return render_template("shop.html")
 
+##########
+## DOCS ##
+##########
+
+@app.route('/files', methods = ['GET', 'POST'])
+@login_required
+def files():
+	return render_template("docs.html")
+
 #################
 ## System info ##
 #################
