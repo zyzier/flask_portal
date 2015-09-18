@@ -1,0 +1,27 @@
+1. Разблокировка через сайт:
+http://www.modemunlock.com/huawei-new-algo-unlock-code-calculator.html
+
+IMEI(original) = 860274021044789
+
+IMEI(new) = 358016038425439
+
+Model No. : 	E5776
+IMEI : 	
+860274021044789
+NEW ALGO CODE : 	57760323
+OLD ALGO CODE : 	39049722
+FLASH CODE : 	60242155
+
+at^datalock=57760323
+
+at^nvwr=0,16,03 05 08 00 01 06 00 03 08 04 02 05 04 03 09 00
+
+358016038425439
+
+
+
+
+mount -r -w -o remount -t yaffs2 /dev/block/mtdblock0 /system
+chmod 777 /system
+
+busybox echo 63 > /proc/sys/net/ipv4/ip_default_ttl

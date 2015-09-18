@@ -7,7 +7,7 @@ from forms import LoginForm, EditForm
 from models import User, Post, ROLE_USER, ROLE_ADMIN, bcrypt
 #For working with commandline it's better to use subprocesses unlike os module
 from subprocess import Popen, PIPE
-from config import POSTS_PER_PAGE, MPD_HOST, MPD_PORT, TORRENT_WEB_URL
+from config import POSTS_PER_PAGE, MPD_HOST, MPD_PORT, TORRENT_WEB_URL, UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 
 @lm.user_loader
 def load_user(id):
@@ -81,8 +81,29 @@ def shop():
 
 @app.route('/files', methods = ['GET', 'POST'])
 @login_required
-def files():
-	return render_template("docs.html")
+def files():	
+	if request.method == 'POST' and request.files['file']:
+		upload_file()
+		return redirect(url_for('files'))
+	elif request.method == 'POST':
+		flash('???')
+		return redirect(url_for('files'))
+		
+	from os import listdir
+	filelist = listdir(UPLOAD_FOLDER)
+	return render_template('files.html', filelist = filelist)
+
+#Filter for uploading files
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def upload_file():
+	file = request.files['file']
+	if file and allowed_file(file.filename):
+		from os import path
+		file.save(path.join(UPLOAD_FOLDER, file.filename))
+		return redirect(url_for('files'))
+	return redirect(url_for('files'))
 
 #################
 ## System info ##

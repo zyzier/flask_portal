@@ -26,3 +26,7 @@ TORRENT_WEB_URL = 'http://zyzier.tk:9091/transmission/web/'
 #MPD server:
 MPD_HOST = "89.223.57.88"
 MPD_PORT = 6600
+
+#Upload directory:
+UPLOAD_FOLDER = '/home/peps/portal/uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])

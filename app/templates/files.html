@@ -1,0 +1,35 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+	<h1>Cheat Sheets</h1>
+	<pre><code>
+	doc files, pdfs, archives and whatever...
+	</code></pre>
+
+<form action="" method=post enctype=multipart/form-data value=Browse>
+<div class="fileupload btn btn-primary">
+    <span>Browse</span>
+	<input class="upload" type=file name=file>
+</div>
+	<input class="btn btn-success" type=submit value=Upload>
+</form>
+
+
+<!-- Working button  -->
+<form action="" method=post enctype=multipart/form-data>
+	<p><input type=file name=file><input type=submit value=Upload>
+</form>
+<!---->
+
+<h1>Content</h1>
+	{% for file in filelist %}
+		<p>{{ file }}</p>
+		<form action="" method=post enctype=multipart/form-data>
+		<input class="btn btn-danger" name=delete type=submit value=Delete>
+		</form>
+		<hr>
+	{% endfor %}
+
+</div>
+{% endblock %}
