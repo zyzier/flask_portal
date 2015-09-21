@@ -76,22 +76,25 @@
 				font-size: 80%;
 			}
 			/* Upload file style ---------------------------------------------- */
-			.fileupload {
+			.btn-file {
 				position: relative;
 				overflow: hidden;
-				margin: 10px;
-				}
-			.fileupload input.upload {
+			}
+			.btn-file input[type=file] {
 				position: absolute;
 				top: 0;
 				right: 0;
-				margin: 0;
-				padding: 0;
-				font-size: 20px;
-				cursor: pointer;
-				opacity: 0;
+				min-width: 100%;
+				min-height: 100%;
+				font-size: 100px;
+				text-align: right;
 				filter: alpha(opacity=0);
-				}
+				opacity: 0;
+				outline: none;
+				background: white;
+				cursor: inherit;
+				display: block;
+			}
 	    </style>
 
 		<link href="/static/css/bootstrap-responsive.css" rel="stylesheet" />

@@ -82,13 +82,23 @@ def shop():
 @app.route('/files', methods = ['GET', 'POST'])
 @login_required
 def files():	
-	if request.method == 'POST' and request.files['file']:
-		upload_file()
+	if request.method == 'POST':
+		if 'upload' in request.form and request.files['file']:
+			print request.files['file']
+			upload_file()
+			return redirect(url_for('files'))
+		if 'delete' in request.form and request.form.getlist("do_delete") != []:
+			from os import remove, path
+			to_delete = request.form.getlist("do_delete")
+			flash('deleting selected files')
+			for name in to_delete:
+				remove(path.join(UPLOAD_FOLDER, name))
+			return redirect(url_for('files'))
+		if 'download' in request.form and request.form.getlist("do_delete") != []:
+			filename = request.form.getlist("do_delete")
+			download(filename)
+			return redirect(url_for('files'))
 		return redirect(url_for('files'))
-	elif request.method == 'POST':
-		flash('???')
-		return redirect(url_for('files'))
-		
 	from os import listdir
 	filelist = listdir(UPLOAD_FOLDER)
 	return render_template('files.html', filelist = filelist)
@@ -104,6 +114,9 @@ def upload_file():
 		file.save(path.join(UPLOAD_FOLDER, file.filename))
 		return redirect(url_for('files'))
 	return redirect(url_for('files'))
+
+def download(filename):
+	return send_from_directory(UPLOAD_FOLDER, filename)
 
 #################
 ## System info ##
