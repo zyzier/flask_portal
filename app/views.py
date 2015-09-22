@@ -1,5 +1,5 @@
 #coding utf-8
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, redirect, session, url_for, request, g, send_from_directory
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from datetime import datetime
 from app import app, db, lm
@@ -75,29 +75,29 @@ def logout():
 def shop():
 	return render_template("shop.html")
 
-##########
-## DOCS ##
-##########
+###########
+## FILES ##
+###########
 
 @app.route('/files', methods = ['GET', 'POST'])
 @login_required
 def files():	
 	if request.method == 'POST':
 		if 'upload' in request.form and request.files['file']:
-			print request.files['file']
 			upload_file()
 			return redirect(url_for('files'))
-		if 'delete' in request.form and request.form.getlist("do_delete") != []:
+		if 'delete' in request.form and request.form.getlist("checked") != []:
 			from os import remove, path
-			to_delete = request.form.getlist("do_delete")
+			to_delete = request.form.getlist("checked")
 			flash('deleting selected files')
 			for name in to_delete:
 				remove(path.join(UPLOAD_FOLDER, name))
 			return redirect(url_for('files'))
-		if 'download' in request.form and request.form.getlist("do_delete") != []:
-			filename = request.form.getlist("do_delete")
-			download(filename)
-			return redirect(url_for('files'))
+		if 'download' in request.form and request.form.getlist("checked") != []:
+			to_download = request.form.getlist("checked")
+			#for name in to_download:
+			#	print name
+			return redirect(url_for('download', filename=to_download[0]))
 		return redirect(url_for('files'))
 	from os import listdir
 	filelist = listdir(UPLOAD_FOLDER)
@@ -107,16 +107,27 @@ def files():
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+def get_file_params(filename):
+	from os import path
+	filepath = path.abspath(UPLOAD_FOLDER) +"/"+ filename
+	if path.isfile(filepath):
+		return filename, "/download/"+filename, path.getsize(filepath)
+	return filename, "/download/"+filename, path.getsize(filepath)
+
 def upload_file():
 	file = request.files['file']
+	if not allowed_file(file.filename):
+		flash('Wrong file type...')
+		return redirect(url_for('files'))
 	if file and allowed_file(file.filename):
 		from os import path
 		file.save(path.join(UPLOAD_FOLDER, file.filename))
 		return redirect(url_for('files'))
 	return redirect(url_for('files'))
 
+@app.route('/files/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
-	return send_from_directory(UPLOAD_FOLDER, filename)
+	return send_from_directory(directory=UPLOAD_FOLDER, filename=filename)
 
 #################
 ## System info ##

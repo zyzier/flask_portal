@@ -29,4 +29,4 @@ MPD_PORT = 6600
 
 #Upload directory:
 UPLOAD_FOLDER = '/home/peps/portal/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'tar'])

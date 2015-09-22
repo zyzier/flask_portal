@@ -9,16 +9,17 @@
 	<div style="position:relative;">
 		<a class='btn btn-default' href='javascript:;'>Choose File...
 		<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name=file onchange='$("#upload-file-info").html($(this).val());'>
-		</a>&nbsp;<span class='label label-info' id="upload-file-info"></span>
-		<p><input class="btn btn-default" name=upload type=submit value=Upload>
+		</a>&nbsp;<span class='label label-success' id="upload-file-info"></span>
 	</div>
+		<p><input class="btn btn-default" name=upload type=submit value=Upload>
 	
 	<h1>Content</h1>
 	{% for file in filelist %}
-	<p><input type=checkbox name=do_delete value="{{ file }}"> {{ file }}
+	<p><input type=checkbox name=checked value="{{ file }}"> {{ file }}
 	{% endfor %}
 	<p><input class="btn btn-danger" name=delete type=submit value=Delete>
 	<p><input class="btn btn-success" name=download type=submit value=Download>
+
 </form>
 </div>
 {% endblock %}
