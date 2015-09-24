@@ -15,17 +15,17 @@
 			<img alt="First slide" src="/static/img/bender.jpg">
 			<div class="container">
 				<div class="carousel-caption">
-            		<h1>Hi, {{user.nickname}}!
-						<p class = "lead">
-						{% if user.role == 1 %} Admin
-						{% elif user.role == 0 %} User
+            		<h1>Hi, {{user.nickname}}!</h1>
+						Rights policy: 
+						{% if user.role == 1 %}<span class='label label-success'>admin</span>
+						{% elif user.role == 0 %}<span class='label label-success'>user</span>
 						{% endif %}
+						<h1><p class = "lead">
 						{% if user.last_seen %}
-						Last seen on: {{ momentjs(user.last_seen).calendar() }}
+						Last seen: {{ momentjs(user.last_seen).calendar() }}
 						{% endif %}
 						</p>
 					</h1>
-				<p><a class="btn btn-lg btn-primary" href="#" role="button">Some button</a></p>
 				</div>
 			</div>
 		</div>
@@ -33,6 +33,7 @@
 			<img alt="Second slide" src="/static/img/bender.jpg">
 			<div class="container">
 				<div class="carousel-caption">
+					<h1><i class="fa fa-microphone fa-lg"></i></h1>
             		<h1>TeamSpeak Available</h1>
 					<p>U can connect for free <i class="fa fa-smile-o fa-2x"></i></p>
 				</div>
@@ -40,6 +41,13 @@
 		</div>
 		<div class="item">
 			<img alt="Third slide" src="/static/img/bender.jpg">
+			<div class="container">
+				<div class="carousel-caption">
+            		<h1><i class="fa fa-users fa-lg"></i></h1>
+					<h1>XMPP Available</h1>
+					<p>U have special JID: {{user.nickname}}@korobeynikov.club</p>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- Controls -->
