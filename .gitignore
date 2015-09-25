@@ -3,3 +3,4 @@ runP.py
 tmp/*
 tests.py
 flask/*
+uploads/*
