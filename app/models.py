@@ -11,11 +11,13 @@ class User(db.Model):
     role = db.Column(db.SmallInteger, default = ROLE_USER)
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
     last_seen = db.Column(db.DateTime)
+    email = db.Column(db.String(120), index=True, unique=True)
 
-    def __init__(self, nickname, password, role):
+    def __init__(self, nickname, password, role, email):
         self.nickname = nickname
         self.password = bcrypt.generate_password_hash(password)
         self.role = role
+        self.email = email
 
     def is_active(self):
     	return True
