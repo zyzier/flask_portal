@@ -150,6 +150,16 @@ def summary():
 def tools():
 	return render_template("tools.html")
 
+################
+## User page  ##
+################
+
+@app.route('/user', methods = ['GET'])
+@login_required
+def user():
+    user = g.user
+    return render_template("user.html", user = user)
+
 ##############
 ## Fail2Ban ##
 ##############
@@ -195,7 +205,7 @@ def f2bstop():
 @login_required
 def notes(page = 1):
 	user = g.user
-	posts = g.user.posts.paginate(page, 20, False) #20 - post's count on page
+	posts = g.user.posts.paginate(page, 12, False) #12 - post's count on page
 	if user == None:
 		flash('User: ' + nickname + 'not found.')
 		return redirect(url_for('index'))

@@ -1,6 +1,7 @@
 <!-- extend from base layout -->
 {% extends "base.html" %}
 {% block content %}
+<div class = "container">
 <table>
     <tr valign="top">
         <td>
@@ -11,17 +12,5 @@
         </td>
     </tr>
 </table>
-<hr>
-{% for post in posts %}
-<div>
-	<p>
-		Note#{{post.id}}: <b>{{post.title}}</b>
-		<!-- For get post author: 
-		<p>auth:<i>{{post.author.nickname}}</i></p>
-		-->
-		<p><a href="{{url_for('edit', post_id = post.id)}}"><input type="button" value="Edit"></a>
-		<a href="{{url_for('view_post', post_id = post.id)}}"><input type="button" value="View"></a></p>
-	</p>
 </div>
-{% endfor %}
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container">
 <form action="" method=post enctype=multipart/form-data>
+	{% if g.user.role == 1 %}
 	<!-- Default input button
 	<p><input type=file name=file><input class="btn btn-success" type=submit value=Upload>
 	-->
@@ -12,12 +13,14 @@
 		</a>&nbsp;<span class='label label-success' id="upload-file-info"></span>
 	</div>
 		<p><input class="btn btn-default" name=upload type=submit value=Upload>
-	
+	{% endif %}
 	<h1>Content</h1>
 	{% for file in filelist %}
 	<p><input type=checkbox name=checked value="{{ file }}"> {{ file }}
 	{% endfor %}
+	{% if g.user.role == 1 %}
 	<p><input class="btn btn-danger" name=delete type=submit value=Delete>
+	{% endif %}
 	<p><input class="btn btn-success" name=download type=submit value=Download>
 
 </form>
