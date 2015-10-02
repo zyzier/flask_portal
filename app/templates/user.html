@@ -2,15 +2,25 @@
 {% extends "base.html" %}
 {% block content %}
 <div class = "container">
-<table>
-    <tr valign="top">
-        <td>
-            <h1>Hi, {{user.nickname}}!</h1>
-			{% if user.last_seen %}
-			<p><i>Last seen on: {{user.last_seen}}</i></p>
-			{% endif %}
-        </td>
-    </tr>
-</table>
+	<h1>Hi, {{user.nickname}}!</h1>
+	{% if user.last_seen %}
+	<p><i>Last seen on: {{user.last_seen}}</i></p>
+	{% endif %}
+
+<form class="form-horizontal" action="" method="post">
+	<div class="form-group">
+			<label for="new_password" class="control-label">New Password</label>
+			<div class="controls">
+				<input name="new_pass" type="password">
+			</div>
+	</div>
+	<div class="form-group">
+			<label for="confirm_password" class="control-label">Confirm Password</label>
+			<div class="controls">
+				<input name="confirm_pass" type="password">
+			</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Save changes</button>
+</form>
 </div>
 {% endblock %}

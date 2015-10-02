@@ -154,11 +154,25 @@ def tools():
 ## User page  ##
 ################
 
-@app.route('/user', methods = ['GET'])
+@app.route('/user', methods = ['GET', 'POST'])
 @login_required
 def user():
     user = g.user
+    if request.method == 'POST':
+        new_pass = request.form.get("new_pass")
+        confirm_pass = request.form.get("confirm_pass")
+        if new_pass == confirm_pass:
+            set_pass(user, new_pass)
+        else:
+            flash('passwords mismatch!')
+        return render_template("user.html", user = user)
     return render_template("user.html", user = user)
+
+def set_pass(user, new_pass):
+    user = User.query.filter_by(nickname = user.nickname).first()
+    user.password = bcrypt.generate_password_hash(new_pass)
+    db.session.commit()
+    return flash('Password changed!')
 
 ##############
 ## Fail2Ban ##
